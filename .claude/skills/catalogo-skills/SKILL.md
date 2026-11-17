@@ -25,6 +25,10 @@ El script recorre `~/.claude/skills` (personales y sincronizadas desde claude.ai
 `~/.claude/plugins` (agrupa por el nombre del plugin) y `.claude/skills` del proyecto
 actual y sus carpetas padre. Ignora copias inactivas (`inactive-skills`, `.cursor`, `.skills`).
 
+Si el script no puede ejecutarse o no encuentra nada (por ejemplo, en claude.ai, donde
+las skills no están en `~/.claude`), sáltalo y usa solo la lista de skills disponibles
+de tu contexto.
+
 **Completa con la lista de la sesión.** Algunas skills vienen integradas en Claude Code
 y no tienen `SKILL.md` en disco (p. ej. `code-review`, `simplify`, `loop`, `init`,
 `security-review`, `claude-api`, `artifact-design`, `dataviz`…). Añade también las que
