@@ -64,11 +64,27 @@ def nombre_plugin(ruta, raiz):
     return None
 
 
+def fuentes_sincronizadas(raiz):
+    """Lee los manifest.json de las skills sincronizadas desde claude.ai.
+    'anthropic' / 'anthropic-example' = de Anthropic; cualquier otro valor = creada por el usuario."""
+    fuentes = {}
+    for man in raiz.rglob("manifest.json"):
+        if "/synced/" not in str(man):
+            continue
+        try:
+            for sk in json.loads(man.read_text(encoding="utf-8")).get("skills", []):
+                fuentes[(str(man.parent), sk.get("name"))] = sk.get("source", "")
+        except Exception:
+            pass
+    return fuentes
+
+
 def escanear(raices):
     vistos, skills = set(), []
     for origen, raiz in raices:
         if not raiz.is_dir():
             continue
+        fuentes = fuentes_sincronizadas(raiz) if origen == "personal" else {}
         for ruta in sorted(raiz.rglob("SKILL.md")):
             s = str(ruta)
             if any(x in s for x in IGNORAR):
@@ -85,6 +101,11 @@ def escanear(raices):
             invocacion = f"{plugin}:{nombre}" if plugin else nombre
             if grupo == "claude.ai (sincronizadas)":
                 invocacion = f"anthropic-skills:{nombre}"
+                fuente = fuentes.get((str(ruta.parent.parent), nombre), "")
+                if fuente and not fuente.startswith("anthropic"):
+                    grupo = "creadas por ti (claude.ai)"
+                elif fuente:
+                    grupo = "claude.ai (de Anthropic)"
             clave = (grupo, nombre)
             if clave in vistos:
                 continue

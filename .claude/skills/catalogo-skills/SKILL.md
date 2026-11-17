@@ -56,12 +56,15 @@ sugeridas (usa solo las que tengan contenido y crea otra si hace falta):
 Responde en castellano con:
 
 1. **Resumen**: total de skills y recuento por categoría y por origen.
-2. **Catálogo por categoría**: una tabla por categoría con columnas
+2. **Tus skills**: antes del catálogo, una tabla aparte con las del grupo
+   `creadas por ti (claude.ai)` más las de origen `personal` y `proyecto`
+   (las que el usuario ha creado). Si no hay ninguna, dilo en una línea.
+3. **Catálogo por categoría**: una tabla por categoría con columnas
    `Skill (cómo invocarla)` · `Para qué sirve` (una frase propia y breve, en castellano,
    no la descripción copiada) · `Origen`.
    La invocación es `/<nombre>`; para plugins `plugin:nombre`, para las sincronizadas
    `anthropic-skills:nombre`.
-3. **Observaciones** (opcional, breve): duplicados o solapamientos entre skills,
+4. **Observaciones** (opcional, breve): duplicados o solapamientos entre skills,
    skills sin descripción, y cuál conviene para cada caso si hay varias parecidas.
 
 Si el usuario buscaba algo concreto, responde primero con las 1–3 skills más adecuadas
